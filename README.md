@@ -1,36 +1,39 @@
-# How to use GPUs responsibly on Fred Hutch harmony nodes
+# How to use GPUs with sbatch on Fred Hutch harmony nodes
 
 see also: https://sciwiki.fredhutch.org/scicomputing/compute_gpu/
 
 ## Step 1: login to the maestro cluster
 ssh maestro
 
-## start python configured for GPU use using module load
-
+## Step 2: start python configured for GPU use using module load
 
 ```
 ml CUDA-Python/12.1.0-gfbf-2023a-CUDA-12.1.1
 ```
 
-## create a virtual environment (cuda_py_121)
+## Step 3: create a virtual environment (cuda_py_121)
 
 ```
 python -m venv ~/venvs/cuda_py_121
 source ~/venvs/cuda_py_121/bin/activate
 ```
-[! Note] Do this direcly after module loadD
-
-## Install minimal packages for tcrdistgpu
+> [!NOTE]
+> Do this direcly after module load
+> 
+## Step 4: Install minimal packages for tcrdistgpu into the environment
 
 ```
 python -m pip install --upgrade pip setuptools wheel
 python -m pip install tqdm
 python -m pip install cupy 
 ```
-[! Important] CUPY TAKES ABOUT 20 MINUTES TO BUILD
 
-## Run sbatch script
+> [!IMPORTANT]
+> CUPY TAKES ABOUT 20 MINUTES TO BUILD 
 
+
+
+## Step 5: Write and run a sbatch script
 ```
 sbatch run_tgpu_test.sbatch
 ```
@@ -52,8 +55,26 @@ Specifies the correct partition (harmony) and that we only need 1 GPU
 #SBATCH --error=%x_%j.err
 ```
 
-### Check your progress 
+> [!IMPORTANT]
+> Note that we specify 'chorus' partition, limit max time and only ask for 1 gpu
 
+### The sbatch script specifies the virtual environment that you created 
+
+See the entire script in the repo, but these lines are important 
+
+```
+ml purge
+ml CUDA-Python/12.1.0-gfbf-2023a-CUDA-12.1.1
+source ~/venvs/cuda_py_121/bin/activate
+```
+
+> [!NOTE]
+> we module load ml CUDA-Python/12.1.0-gfbf-2023a-CUDA-12.1.1, and we activate the virtual environment where we built cupy
+
+
+
+
+### Check your progress of your job
 
 
 ```
@@ -64,9 +85,12 @@ Submitted batch job 43562282
           43562282    chorus tcrdistg kmayerbl  R       0:07      1 harmony07
 ```
 
+> [!NOTE]
+> after running sbatch you can check status of your jobs
 
 
-### Look at your jobs output
+
+### Look at your jobs output file
 
 ```
 (cuda_py_121) kmayerbl@maestro:~$ more  tcrdistgpu_test_43562282.out
