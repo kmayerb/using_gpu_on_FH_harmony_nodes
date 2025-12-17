@@ -3,7 +3,7 @@
 #SBATCH --partition=chorus
 #SBATCH --gres=gpu:1
 #SBATCH --time=0:05:00
-#SBATCH --cpus-per-task=2
+#SBATCH --cpus-per-task=1
 #SBATCH --mem=8G
 #SBATCH --output=%x_%j.out
 #SBATCH --error=%x_%j.err

@@ -1,0 +1,47 @@
+=== Job info ===
+Wed Dec 17 14:00:49 PST 2025
+harmony07
+SLURM_JOB_ID=43562283
+CUDA_VISIBLE_DEVICES=0
+=== Python ===
+/home/kmayerbl/venvs/cuda_py_121/bin/python
+Python 3.11.3
+=== nvidia-smi ===
+Wed Dec 17 14:00:50 2025       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 550.163.01             Driver Version: 550.163.01     CUDA Version: 12.4     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA L40S                    Off |   00000000:01:00.0 Off |                    0 |
+| N/A   33C    P8             34W /  350W |       1MiB /  46068MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+                                                                                         
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI        PID   Type   Process name                              GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+Successfully added '/fh/fast/gilbert_p/kmayerbl/TCRdist_GPU' to sys.path.
+You can now import modules directly from this location.
+Sucess
+(20000, 4)
+/fh/fast/gilbert_p/kmayerbl/TCRdist_GPU/tcrdistgpu
+	## Prep data for approximate TCRdist(140,ab) for combined chains AB
+	### Dropping Invalid Data: 0
+	### Encoding based on chains: ab:
+	### Computing Approximate TCRdist(140,ab):
+MODE: cuda -- 1.82 seconds
+After Burn-In
+MODE: cuda -- 1.73 seconds
+#####
+Use CPU instead
+/fh/fast/gilbert_p/kmayerbl/TCRdist_GPU/tcrdistgpu
+	### Encoding based on chains: ab:
+	### Computing Approximate TCRdist(140,ab):
+MODE: cpu -- 62.49 seconds
